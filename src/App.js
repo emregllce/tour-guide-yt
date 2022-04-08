@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Loading from './Loading'
 import Tours from './Tours'
+import axios from "axios"
 
 const url = 'https://course-api.com/react-tours-project'
 function App() {
@@ -12,17 +13,15 @@ function App() {
     setTours(newTours);
   }
   const fetchTours = async () => {
+    // setLoading(true);
+    // const response = await fetch(url);
+    // const tours = await response.json();
+    // setLoading(false);
+    // setTours(tours);
     setLoading(true);
-
-    try {
-    const response = await fetch(url);
-    const tours = await response.json();
+    const {data} = await axios.get(url);
     setLoading(false);
-    setTours(tours);
-  } catch (error) {
-    setLoading(false);
-    console.log(error);
-  }
+    setTours(data);
 };
   useEffect(() =>{
     fetchTours();
